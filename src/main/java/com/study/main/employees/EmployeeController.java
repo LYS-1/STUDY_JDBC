@@ -30,7 +30,8 @@ public class EmployeeController {
 			System.out.println("4. 사원 정보 추가");
 			System.out.println("5. 사원 정보 삭제");
 			System.out.println("6. 사원 정보 수정");
-			System.out.println("7. 종료");
+			System.out.println("7. SALARY 평균/총합");
+			System.out.println("8. 종료");
 			int num = sc.nextInt();
 			
 			switch (num) {
@@ -78,6 +79,12 @@ public class EmployeeController {
 				}
 				break;
 			case 7:
+				ArrayList<Double> avg = new ArrayList<Double>();
+				avg = EmployeeDAO.getAvg();
+				System.out.println("AVG = " + avg.get(0));
+				System.out.println("SUM = " + avg.get(1));
+				break;
+			case 8:
 				System.out.println("메인페이지 복귀");
 				check = false;
 				break;

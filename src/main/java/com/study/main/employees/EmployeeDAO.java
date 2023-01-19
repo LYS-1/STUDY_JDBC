@@ -9,6 +9,24 @@ import java.util.ArrayList;
 import com.study.main.util.DBConnection;
 
 public class EmployeeDAO {
+	
+	public static ArrayList<Double> getAvg() throws Exception{
+		ArrayList<Double> avg = new ArrayList<Double>();
+		Connection con = DBConnection.getConnection();
+		String sql = "SELECT AVG(SALARY), SUM(SALARY) FROM EMPLOYEES";
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		avg.add(rs.getDouble("AVG(SALARY)"));
+		avg.add(rs.getDouble("SUM(SALARY)"));
+
+		DBConnection.disconnect(rs,ps,con);
+		
+		return avg;
+	}
+	
 	public static int updateData(EmployeeDTO eDTO) throws Exception {
 		
 		Connection con = DBConnection.getConnection();
