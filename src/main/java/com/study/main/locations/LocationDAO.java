@@ -8,7 +8,59 @@ import java.util.ArrayList;
 import com.study.main.util.DBConnection;
 
 public class LocationDAO {
+	public static int updateData(LocationDTO lDTO) throws Exception{
+		
+		Connection con = DBConnection.getConnection();
+		
+		String sql = "UPDATE LOCATIONS SET STREET_ADDRESS = ?, POSTAL_CODE = ? WHERE LOCATION_ID = ?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, lDTO.getStreet_address());
+		ps.setString(2, lDTO.getPostal_code());
+		ps.setInt(3, lDTO.getLocation_id());
+		
+		int result = ps.executeUpdate();
+		
+		DBConnection.disconnect(ps, con);
+		
+		return result;
+	}
+	public static int delData(LocationDTO lDTO) throws Exception{
+		
+		Connection con = DBConnection.getConnection();
+		
+		String sql = "DELETE LOCATIONS WHERE LOCATION_ID = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, lDTO.getLocation_id());
+		
+		int result = ps.executeUpdate();
+		
+		DBConnection.disconnect(ps, con);
+		
+		return result;
+	}
 	
+	
+	public static int setData(LocationDTO lDTO) throws Exception{
+		
+		Connection con = DBConnection.getConnection();
+		
+		String sql = "INSERT INTO LOCATIONS (LOCATION_ID, STREET_ADDRESS, POSTAL_CODE, CITY, STATE_PROVINCE, COUNTRY_ID) "
+				+ "VALUES (LOCATIONS_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, lDTO.getStreet_address());
+		ps.setString(2, lDTO.getPostal_code());
+		ps.setString(3, lDTO.getCity());
+		ps.setString(4, lDTO.getState_province());
+		ps.setString(5, lDTO.getCountry_id());
+		
+		int result = ps.executeUpdate();
+		
+		DBConnection.disconnect(ps, con);
+		
+		return result;
+	}
 	public static ArrayList<LocationDTO> getFind(String search) throws Exception{
 		ArrayList<LocationDTO> loArr = new ArrayList<LocationDTO>();
 		
@@ -19,9 +71,7 @@ public class LocationDAO {
 		ps.setString(1, "%" + search + "%");
 		
 		ResultSet rs = ps.executeQuery();
-		if(!rs.next()) {
-			loArr = null;
-		}
+		
 		while(rs.next()) {
 			LocationDTO loDTO = new LocationDTO();
 			loDTO.setLocation_id(rs.getInt("LOCATION_ID"));
@@ -30,9 +80,12 @@ public class LocationDAO {
 			loDTO.setCity(rs.getString("CITY"));
 			loDTO.setState_province(rs.getString("STATE_PROVINCE"));
 			loDTO.setCountry_id(rs.getString("COUNTRY_ID"));
-			
+				
 			loArr.add(loDTO);
 		}
+
+		
+		DBConnection.disconnect(rs, ps, con);
 		
 		return loArr;
 	}
@@ -56,8 +109,10 @@ public class LocationDAO {
 			loDTO.setCity(rs.getString("CITY"));
 			loDTO.setState_province(rs.getString("STATE_PROVINCE"));
 			loDTO.setCountry_id(rs.getString("COUNTRY_ID"));
+			
+			
 		}else {
-			System.out.println("no data");
+			return null;
 		}
 		
 		DBConnection.disconnect(rs, ps, con);

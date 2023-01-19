@@ -10,16 +10,16 @@ public class EmployeeDTO {
 	private String phone_number;
 	private Date hire_date;
 	private String job_id;
-	private Integer commission_pct;
+	private Double commission_pct;
 	private Integer manager_id;
 	private Integer department_id;
-	private Integer salary;
+	private Double salary;
 	
 	
-	public Integer getSalary() {
+	public Double getSalary() {
 		return salary;
 	}
-	public void setSalary(Integer salary) {
+	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
 	public Integer getEmployee_id() {
@@ -64,10 +64,10 @@ public class EmployeeDTO {
 	public void setJob_id(String job_id) {
 		this.job_id = job_id;
 	}
-	public Integer getCommission_pct() {
+	public Double getCommission_pct() {
 		return commission_pct;
 	}
-	public void setCommission_pct(Integer commission_pct) {
+	public void setCommission_pct(Double commission_pct) {
 		this.commission_pct = commission_pct;
 	}
 	public Integer getManager_id() {

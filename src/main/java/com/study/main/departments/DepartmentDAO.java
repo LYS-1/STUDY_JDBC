@@ -8,6 +8,58 @@ import java.util.ArrayList;
 import com.study.main.util.DBConnection;
 
 public class DepartmentDAO {
+	public static int updateData(DepartmentDTO deDTO) throws Exception{
+		
+		Connection con = DBConnection.getConnection();
+		//바꿀 컬럼, 바꿀 값 / departmentid = id값
+		String sql = "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ? ,MANAGER_ID = ? LOCATION_ID = ?"
+				+ "WHERE DEPARTMENT_ID = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, deDTO.getDepartment_name());
+		ps.setInt(2, deDTO.getManager_id());
+		ps.setInt(3, deDTO.getLocation_id());
+		ps.setInt(4, deDTO.getDepartment_id());
+		int result = ps.executeUpdate();
+		
+		DBConnection.disconnect(ps, con);
+		
+		return result;
+	}
+	public static int delData(DepartmentDTO deDTO) throws Exception{
+		
+		Connection con = DBConnection.getConnection();
+		
+		String sql = "DELETE DEPARTMENTS WHERE DEPARTMENT_ID = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, deDTO.getDepartment_id());
+		
+		int result = ps.executeUpdate();
+		
+		DBConnection.disconnect(ps, con);
+		
+		return result;
+	}
+	
+	public static int setData(DepartmentDTO deDTO) throws Exception{
+		
+		Connection con = DBConnection.getConnection();
+		
+		String sql = "INSERT INTO DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID) "
+				+ "VALUES(DEPARTMENTS_SEQ.NEXTVAL, ?, ?, ?)";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1,	deDTO.getDepartment_name());
+		ps.setInt(2, deDTO.getManager_id());
+		ps.setInt(3, deDTO.getLocation_id());
+		
+		int result = ps.executeUpdate();
+		
+		DBConnection.disconnect(ps, con);
+		
+		return result;
+		
+	}
 	
 	public static DepartmentDTO getDetail(int department_id) throws Exception{
 		DepartmentDTO deDTO = null;
