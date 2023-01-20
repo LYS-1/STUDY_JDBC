@@ -29,9 +29,9 @@ public class MainController {
 		
 		while(check) {
 			System.out.println("메인 페이지");
-			System.out.println("1. 부서 정보 검색");
-			System.out.println("2. 지역 정보 검색");
-			System.out.println("3. 사원 정보 검색");
+			System.out.println("1. 부서 관리");
+			System.out.println("2. 지역 관리");
+			System.out.println("3. 사원 관리");
 			System.out.println("4. 종료");
 			
 			int num = sc.nextInt();

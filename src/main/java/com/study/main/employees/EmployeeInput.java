@@ -21,8 +21,8 @@ public class EmployeeInput {
 		eDTO.setEmail(sc.next());
 		System.out.println("phone_number를 입력하세요");
 		eDTO.setPhone_number(sc.next());
-		System.out.println("hire_date는 현재 시간으로 들어갑니다.");
-		eDTO.setHire_date(Date.valueOf(LocalDate.now()));
+		System.out.println("hire_date를 입력하세요. (형식: yyyy-mm-dd)");
+		eDTO.setHire_date(sc.next());
 		System.out.println("job_id를 입력하세요");
 		eDTO.setJob_id(sc.next());
 		System.out.println("salary를 입력하세요");

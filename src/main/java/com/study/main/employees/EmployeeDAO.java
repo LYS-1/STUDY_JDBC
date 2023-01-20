@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.study.main.util.DBConnection;
 
@@ -21,7 +22,9 @@ public class EmployeeDAO {
 		rs.next();
 		avg.add(rs.getDouble("AVG(SALARY)"));
 		avg.add(rs.getDouble("SUM(SALARY)"));
-
+		HashMap<String, Double> map = new HashMap<String, Double>();
+		map.put("avg", avg.get(0));
+		map.put("sum", avg.get(1));
 		DBConnection.disconnect(rs,ps,con);
 		
 		return avg;
@@ -68,7 +71,7 @@ public class EmployeeDAO {
 		ps.setString(2, eDTO.getLast_name());
 		ps.setString(3, eDTO.getEmail());
 		ps.setString(4, eDTO.getPhone_number());
-		ps.setDate(5, eDTO.getHire_date());
+		ps.setString(5, eDTO.getHire_date());
 		ps.setString(6, eDTO.getJob_id());
 		ps.setDouble(7, eDTO.getSalary());
 		ps.setDouble(8, eDTO.getCommission_pct());
@@ -125,7 +128,7 @@ public class EmployeeDAO {
 			eDTO.setLast_name(rs.getString("LAST_NAME"));
 			eDTO.setEmail(rs.getString("EMAIL"));
 			eDTO.setPhone_number(rs.getString("PHONE_NUMBER"));
-			eDTO.setHire_date(rs.getDate("HIRE_DATE"));
+			eDTO.setHire_date(rs.getString("HIRE_DATE"));
 			eDTO.setJob_id(rs.getString("JOB_ID"));
 			eDTO.setSalary(rs.getDouble("SALARY"));
 			eDTO.setCommission_pct(rs.getDouble("COMMISSION_PCT"));
@@ -164,7 +167,7 @@ public class EmployeeDAO {
 			eDTO.setLast_name(rs.getString("LAST_NAME"));
 			eDTO.setEmail(rs.getString("EMAIL"));
 			eDTO.setPhone_number(rs.getString("PHONE_NUMBER"));
-			eDTO.setHire_date(rs.getDate("HIRE_DATE"));
+			eDTO.setHire_date(rs.getString("HIRE_DATE"));
 			eDTO.setJob_id(rs.getString("JOB_ID"));
 			eDTO.setSalary(rs.getDouble("SALARY"));
 			eDTO.setCommission_pct(rs.getDouble("COMMISSION_PCT"));
